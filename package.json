@@ -1,0 +1,63 @@
+{
+  "name": "airfec-description-brian",
+  "description": "Description module for mock airbnb project",
+  "author": "",
+  "license": "ISC",
+  "engines": {
+    "node": ">=6.13.0"
+  },
+  "scripts": {
+    "start": "node server/controller/controller.js",
+    "react-dev": "webpack -d --watch --progress --profile",
+    "react-pro": "webpack -p --watch --progress --profile"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "mysql": "^2.15.0",
+    "nodemon": "^1.17.5",
+    "prop-types": "^15.6.1",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-popup": "^0.9.3",
+    "styled-components": "^3.3.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-styled-components": "^1.5.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor.git",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.8.2",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "install": "^0.11.0",
+    "mini-css-extract-plugin": "^0.4.0",
+    "npm": "^6.1.0",
+    "webpack": "^4.11.0",
+    "webpack-cli": "^3.0.2"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/the-big-mak/airfec-description-brian.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/the-big-mak/airfec-description-brian/issues"
+  },
+  "homepage": "https://github.com/the-big-mak/airfec-description-brian#readme"
+}
