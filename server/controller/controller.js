@@ -65,6 +65,24 @@ app.get('/description', (req, res) => {
   });
 });
 
+// TODO: CRUD handler functions for different endpoints
+
+app.post('/new', (req, res) => {
+  // handler function to create a new property and its description
+});
+
+app.put('/edit', (req, res) => {
+  // handler function for editing the description of the property
+});
+
+app.delete('/delete', (req, res) => {
+  // handler function for deleting a property from the database
+});
+
+app.get('/contact', (req, res) => {
+  // handler function for contacting a host in the database by getting host information
+});
+
 app.listen(PORT, () => {
   console.log('Listening to ', PORT);
 });

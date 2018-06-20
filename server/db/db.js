@@ -10,8 +10,3 @@ const con = mysql.createConnection({
 });
 
 module.exports.con = con;
-
-// host: 'localhost',
-// user: 'root',
-// password: 'ABCdef123!',
-// database: 'airfec',
