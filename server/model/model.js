@@ -1,4 +1,4 @@
-const db = require('../db/db.js');
+const db = require('../db/postgres.js');
 
 module.exports = {
   getDesc: (params, callback) => {

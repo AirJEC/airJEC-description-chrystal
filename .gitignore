@@ -6,3 +6,9 @@ node_modules/
 
 ##webpack default output folder
 dist/
+
+## db config file
+server/db/config.js
+
+## generated CSV data
+server/db/descriptions.csv

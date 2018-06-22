@@ -1,13 +1,13 @@
 {
-  parser: "babel-eslint",
-  plugins: ["react", "import", "jsx-a11y"],
-  env: {
+  "parser": "babel-eslint",
+  "plugins": ["react", "import", "jsx-a11y"],
+  "env": {
     "browser": true,
     "node": true,
     "es6": true
   },
-  rules: {
+  "rules": {
     "react/prop-types": [2]
   },
-  extends: ["airbnb"]
-};
+  "extends": ["airbnb"]
+}
