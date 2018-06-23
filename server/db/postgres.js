@@ -9,10 +9,10 @@ const client = new Client(config.postgres);
 
 client.connect();
 
-// for (var i = 0; i < 100; i++) {
-//   console.log(faker.generateDescription());
-//   fs.appendFileSync(path.join(__dirname, './descriptions.csv'), faker.generateDescription());
-// };  
+for (var i = 0; i < 1000; i++) {
+  console.log(faker.generateDescription());
+  fs.appendFileSync(path.join(__dirname, './descriptions.csv'), faker.generateDescription());
+};  
 
 // look into streams to optimize write time to the database
 
