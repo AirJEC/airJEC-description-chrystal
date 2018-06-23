@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const faker = require('./generateData.js');
+
 mongoose.connect('mongodb://localhost/airjec');
 
 const descriptionSchema = new mongoose.Schema({
@@ -17,9 +17,9 @@ const descriptionSchema = new mongoose.Schema({
   bath: Number,
 });
 
-const descriptionModel = mongoose.model('description', descriptionSchema);
+const DescriptionModel = mongoose.model('description', descriptionSchema);
 
-const firstInstance = new descriptionModel({
+const firstInstance = new DescriptionModel({
   id: 567,
   title: 'this is the listing title',
   descriptons: 'this is the listing description',
@@ -47,7 +47,7 @@ firstInstance.save((err, small) => {
 });
 
 const db = mongoose.connection;
-db.on('error', console.log.bind(console, 'connection error:'))
+db.on('error', console.log.bind(console, 'connection error:'));
 db.once('open', () => {
   console.log('connection opened');
 });

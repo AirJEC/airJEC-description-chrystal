@@ -1,19 +1,19 @@
 const faker = require('faker');
 
 const getRandomInt = (min, max) => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+  const mi = Math.ceil(min);
+  const ma = Math.floor(max);
+  return Math.floor(Math.random() * ((ma - mi) + 1)) + min;
+};
 
 const propertyTypes = () => {
-  let types = [
+  const types = [
     'entire_house',
     'private_room',
     'shared_room',
   ];
   return types[getRandomInt(0, 2)];
-}
+};
 
 const title = faker.lorem.words;
 const description = faker.lorem.words;
@@ -28,9 +28,9 @@ const bedrooms = getRandomInt;
 const bath = getRandomInt;
 
 const generateDescription = () => {
-  let string = "";
-  for (var i = 0; i < 10000; i++) {
-    string += `${title()},${description()},${space()},${access()},${interactions()},${notes()},${property_type()},${guests(1, 10)},${beds(1, 10)},${bedrooms(1, 5)},${bath(1, 5)}` + "\n";
+  let string = '';
+  for (let i = 0; i < 10000; i++) {
+    string += `${title()},${description()},${space()},${access()},${interactions()},${notes()},${property_type()},${guests(1, 10)},${beds(1, 10)},${bedrooms(1, 5)},${bath(1, 5)}\n`;
   }
   return string;
 };
