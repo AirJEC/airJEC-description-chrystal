@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const model = require('../model/model.js');
+const faker = require('../db/generateData.js');
+const fs = require('fs');
 
 const app = express();
 const PORT = 8081;
@@ -13,6 +15,11 @@ const headers = {
   'access-control-max-age': 10,
   'Content-Type': 'application/json',
 };
+
+for (let i = 0; i < 1000; i++) {
+  console.log(faker.generateDescription());
+  fs.appendFileSync(path.join(__dirname, './descriptions.csv'), faker.generateDescription());
+}
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
