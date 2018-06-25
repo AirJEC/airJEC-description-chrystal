@@ -1,5 +1,5 @@
 CREATE TABLE descriptions (
-  id SERIAL,
+  id INT,
   title TEXT NOT NULL,
   descriptions TEXT NOT NULL,
   space TEXT NOT NULL,
