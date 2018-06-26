@@ -17,13 +17,8 @@ const descriptionSchema = new mongoose.Schema({
   bath: Number,
 });
 
-// const DescriptionModel = mongoose.model('description', descriptionSchema);
-
 const db = mongoose.connection;
 db.on('error', console.log.bind(console, 'connection error:'));
-// db.once('open', () => {
-//   console.log('connection opened');
-// });
 
 module.exports = {
   // createData,
