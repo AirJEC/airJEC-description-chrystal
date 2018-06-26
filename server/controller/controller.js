@@ -1,9 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const path = require('path');
 const model = require('../model/model.js');
-const faker = require('../db/generateData.js');
-const fs = require('fs');
+const path = require('path');
+// const db = require(); // file depends on which database you end up choosing
 
 const app = express();
 const PORT = 8081;
@@ -15,11 +14,6 @@ const headers = {
   'access-control-max-age': 10,
   'Content-Type': 'application/json',
 };
-
-for (let i = 0; i < 1000; i++) {
-  console.log(faker.generateDescription());
-  fs.appendFileSync(path.join(__dirname, './descriptions.csv'), faker.generateDescription());
-}
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -76,14 +70,17 @@ app.get('/description', (req, res) => {
 
 app.post('/new', (req, res) => {
   // handler function to create a new property and its description
+  // db.createData(); 
 });
 
 app.put('/edit', (req, res) => {
   // handler function for editing the description of the property
+  // db.updateData();
 });
 
 app.delete('/delete', (req, res) => {
   // handler function for deleting a property from the database
+  // db.deleteData();
 });
 
 app.get('/contact', (req, res) => {

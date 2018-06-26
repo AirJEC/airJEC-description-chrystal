@@ -1,4 +1,57 @@
 const db = require('../db/postgres.js');
+const mongo = require('../db/mongo.js');
+const { exec } = require('child_process');
+const fs = require('fs');
+const path = require('path');
+const faker = require('../db/generateData.js');
+
+const file = fs.createWriteStream(path.join(__dirname, '../db/descriptions.csv'));
+file.write(`id,title,descriptions,space,access,interactions,notes,property_type,guests,beds,bedrooms,bath\n`);
+
+const writeTenMillionRows = (writeStream, rows, encoding, callback) => {
+  let i = 1000;
+  writeData();
+  function writeData() {
+    let ok = true;
+    do {
+      i--;
+      if (i === 0) {
+        writeStream.write(rows(), encoding, callback);
+      } else {
+        ok = writeStream.write(rows(), encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+      writeStream.once('drain', writeData);
+    }
+  }
+};
+
+const writeToDatabase = `
+  COPY descriptions (id, title, descriptions, space, access, interactions, notes, property_type, guests, beds, bedrooms, bath) FROM '/Users/chrystalzou/hackreactor/airjec/airjec-description-chrystal/server/db/descriptions.csv' DELIMITER ',' CSV HEADER;
+`;
+
+mongo.db.once('open', () => {
+  console.log('connection opened');
+  writeTenMillionRows(file, faker.generateDescription, null, (err, results) => {
+    if (err) {
+      console.log("error generating data");
+    } else {
+      db.client.query(writeToDatabase, (err, res) => {
+        console.log(err, res);
+        db.client.end();
+      });
+      exec('mongoimport --db airjec --collection descriptions --headerline --type csv --file /Users/chrystalzou/hackreactor/airjec/airjec-description-chrystal/server/db/descriptions.csv', (error, stdout, stderr) => {
+        if (error) {
+          console.error(`exec error: ${error}`);
+          return;
+        }
+        console.log(`stdout: ${stdout}`);
+        console.log(`stderr: ${stderr}`);
+      });
+    }
+  });
+});
 
 module.exports = {
   getDesc: (params, callback) => {

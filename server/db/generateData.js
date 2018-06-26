@@ -15,6 +15,7 @@ const propertyTypes = () => {
   return types[getRandomInt(0, 2)];
 };
 
+let id = 1;
 const title = faker.lorem.words;
 const description = faker.lorem.words;
 const space = faker.lorem.word;
@@ -30,7 +31,9 @@ const bath = getRandomInt;
 const generateDescription = () => {
   let string = '';
   for (let i = 0; i < 10000; i++) {
-    string += `${title()},${description()},${space()},${access()},${interactions()},${notes()},${property_type()},${guests(1, 10)},${beds(1, 10)},${bedrooms(1, 5)},${bath(1, 5)}\n`;
+    string += `${id},${title()},${description()},${space()},${access()},${interactions()},${notes()},${property_type()},${guests(1, 10)},${beds(1, 10)},${bedrooms(1, 5)},${bath(1, 5)}\n`;
+    id += 1;
+    // console.log(id);
   }
   return string;
 };
