@@ -12,3 +12,5 @@ server/db/config.js
 
 ## generated CSV data
 server/db/descriptions.csv
+server/db/amenities.csv
+server/db/houserules.csv
