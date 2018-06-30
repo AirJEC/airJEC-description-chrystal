@@ -20,3 +20,9 @@ newrelic.js
 
 ## artillery config
 /server/controller/artillery.yml
+
+## redis files
+dump.rdb
+newrelic_agent.log
+redis-stable.tar.gz
+redis-stable/

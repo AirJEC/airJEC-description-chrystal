@@ -7,7 +7,6 @@ const db = require('../db/postgres.js');
 const cluster = require('cluster');
 const numCPUs = require('os').cpus().length;
 const redis = require('redis');
-const axios = require('axios');
 
 if (cluster.isMaster) {
   console.log(`Master ${process.pid} is running`);
@@ -36,10 +35,11 @@ if (cluster.isMaster) {
   let descriptionId;
   let descriptionBody;
   
-  cache = (req, res, next) => {
+  const cache = (req, res, next) => {
     let request = req.params.id;
     client.get(request, (err, data) => {
       if (err) {
+        console.log(err);
       } else if (data != null) {
         res.send(JSON.stringify(descriptionBody));
       } else {
