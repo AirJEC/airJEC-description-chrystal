@@ -39,7 +39,8 @@ CREATE TABLE house_rules (
 CREATE TABLE description_to_amenities (
   description_id INT NOT NULL,
   amenities_id INT NOT NULL,
-  FOREIGN KEY (description_id) 
+  amenities VARCHAR(30),
+  FOREIGN KEY (description_id)
     REFERENCES descriptions (id),
   FOREIGN KEY (amenities_id) 
     REFERENCES amenities (id)
@@ -48,6 +49,7 @@ CREATE TABLE description_to_amenities (
 CREATE TABLE description_to_house_rules (
   description_id INT NOT NULL,
   house_rules_id INT NOT NULL,
+  house_rules VARCHAR(50),
   FOREIGN KEY (description_id)
     REFERENCES descriptions (id), 
   FOREIGN KEY (house_rules_id)

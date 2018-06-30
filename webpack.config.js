@@ -3,11 +3,11 @@
 const path = require('path');
 
 module.exports = {
-  entry: {main: './client/src/js/index.jsx'},
+  entry: {main: './client/src/index.jsx'},
   resolve: { extensions: ['.js', '.jsx'] },
   output: {
-      path: path.resolve(__dirname, 'public'),
-      filename: 'bundle.js'
+      path: path.resolve(__dirname, './dist'),
+      filename: 'overview.js'
   },
   module:{
       rules:[
@@ -18,11 +18,6 @@ module.exports = {
                   loader: "babel-loader"
               }
           },
-          {
-              test: /\.jsx?$/,
-              exclude: /node_modules/,
-              use: ['babel-loader', 'eslint-loader'],
-          }
       ]
   },
 };

@@ -1,57 +1,115 @@
 const db = require('../db/postgres.js');
-const mongo = require('../db/mongo.js');
+// const mongo = require('../db/mongo.js');
 const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const faker = require('../db/generateData.js');
 
-const file = fs.createWriteStream(path.join(__dirname, '../db/descriptions.csv'));
-file.write(`id,title,descriptions,space,access,interactions,notes,property_type,guests,beds,bedrooms,bath\n`);
+// const descriptionsFile = fs.createWriteStream(path.join(__dirname, '../db/descriptions.csv'));
+// descriptionsFile.write(`id,title,descriptions,space,access,interactions,notes,property_type,guests,beds,bedrooms,bath\n`);
 
-const writeTenMillionRows = (writeStream, rows, encoding, callback) => {
-  let i = 1000;
-  writeData();
-  function writeData() {
-    let ok = true;
-    do {
-      i--;
-      if (i === 0) {
-        writeStream.write(rows(), encoding, callback);
-      } else {
-        ok = writeStream.write(rows(), encoding);
-      }
-    } while (i > 0 && ok);
-    if (i > 0) {
-      writeStream.once('drain', writeData);
-    }
-  }
-};
+// const amenitiesFile = fs.createWriteStream(path.join(__dirname, '../db/amenities.csv'));
+// amenitiesFile.write(`description_id, amenities_id, amenities\n`);
 
-const writeToDatabase = `
-  COPY descriptions (id, title, descriptions, space, access, interactions, notes, property_type, guests, beds, bedrooms, bath) FROM '/Users/chrystalzou/hackreactor/airjec/airjec-description-chrystal/server/db/descriptions.csv' DELIMITER ',' CSV HEADER;
+// const houseRulesFile = fs.createWriteStream(path.join(__dirname, '../db/houserules.csv'));
+// houseRulesFile.write(`description_id, house_rules_id, house_rules\n`);
+
+// const writeTenMillionRows = (writeStream, rows, encoding, callback) => {
+//   let k = 1000;
+//   writeData();
+//   function writeData() {
+//     let ok = true;
+//     do {
+//       k--;
+//       if (k === 0) {
+//         writeStream.write(rows().string, encoding, callback);
+//       } else {
+//         ok = writeStream.write(rows().string, encoding);
+//       }
+//     } while (k > 0 && ok);
+//     if (k > 0) {
+//       writeStream.once('drain', writeData);
+//     }
+//   }
+// };
+
+// const mongoAddTenMillionRows = (attribute, generateData, timesRemaining, callback) => {
+//   if (timesRemaining === 0) {
+//     return;
+//   }
+//   attribute.insertMany(generateData().array, (err) => {
+//     if (err) {
+//       console.log('error writing to database');
+//     } else {
+//       console.log(timesRemaining);
+//       mongoAddTenMillionRows(attribute, generateData, timesRemaining - 1);
+//     }
+//   });
+// };
+
+const writeToDescriptions = `
+COPY descriptions (id, title, descriptions, space, access, interactions, notes, property_type, guests, beds, bedrooms, bath) FROM '/Users/chrystalzou/hackreactor/airjec/airjec-description-chrystal/server/db/descriptions.csv' DELIMITER ',' CSV HEADER;
 `;
 
-mongo.db.once('open', () => {
-  console.log('connection opened');
-  writeTenMillionRows(file, faker.generateDescription, null, (err, results) => {
-    if (err) {
-      console.log("error generating data");
-    } else {
-      db.client.query(writeToDatabase, (err, res) => {
-        console.log(err, res);
-        db.client.end();
-      });
-      exec('mongoimport --db airjec --collection descriptions --headerline --type csv --file /Users/chrystalzou/hackreactor/airjec/airjec-description-chrystal/server/db/descriptions.csv', (error, stdout, stderr) => {
-        if (error) {
-          console.error(`exec error: ${error}`);
-          return;
-        }
-        console.log(`stdout: ${stdout}`);
-        console.log(`stderr: ${stderr}`);
-      });
-    }
-  });
-});
+const writeToAmenities = `
+COPY description_to_amenities (description_id, amenities_id, amenities) FROM '/Users/chrystalzou/hackreactor/airjec/airjec-description-chrystal/server/db/amenities.csv' DELIMITER ',' CSV HEADER;
+`;
+
+const writeToHouseRules = `
+COPY description_to_house_rules (description_id, house_rules_id, house_rules) FROM '/Users/chrystalzou/hackreactor/airjec/airjec-description-chrystal/server/db/houserules.csv' DELIMITER ',' CSV HEADER;
+`;
+
+// mongo.db.once('open', () => {
+
+  // db.client.query('CREATE INDEX property_id ON descriptions (id)', (err, res) => {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     console.log(err, res);
+  //   }
+  // })
+
+  // mongoAddTenMillionRows(mongo.HouseRule, faker.generateHouseRules, 1000);
+  // mongoAddTenMillionRows(mongo.Amenity, faker.generateAmenities, 1000);  
+
+  // writeTenMillionRows(descriptionsFile, faker.generateDescription, null, (err, results) => {
+  //   if (err) {
+  //     console.log("error generating data");
+  //   } else {
+  //     db.client.query(writeToDescriptions, (err, res) => {
+  //       console.log(err, res);
+  //     });
+      // exec('mongoimport --db airjec --collection descriptions --headerline --type csv --file /Users/chrystalzou/hackreactor/airjec/airjec-description-chrystal/server/db/descriptions.csv', (error, stdout, stderr) => {
+      //   if (error) {
+      //     console.error(`exec error: ${error}`);
+      //     return;
+      //   }
+      //   console.log(`stdout: ${stdout}`);
+      //   console.log(`stderr: ${stderr}`);
+      // });
+  //   }
+  // });
+
+  // writeTenMillionRows(amenitiesFile, faker.generateAmenities, null, (err, results) => {
+  //   if (err) {
+  //     console.log("error generating data");
+  //   } else {
+  //     db.client.query(writeToAmenities, (err, res) => {
+  //       console.log(err, res);
+  //     });
+  //   }
+  // });
+
+//   writeTenMillionRows(houseRulesFile, faker.generateHouseRules, null, (err, results) => {
+//     if (err) {
+//       console.log("error generating data");
+//     } else {
+//       db.client.query(writeToHouseRules, (err, res) => {
+//         console.log(err, res);
+//       });
+//     }
+//   });
+// });
 
 module.exports = {
   getDesc: (params, callback) => {
