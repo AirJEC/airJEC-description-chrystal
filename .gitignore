@@ -14,3 +14,15 @@ server/db/config.js
 server/db/descriptions.csv
 server/db/amenities.csv
 server/db/houserules.csv
+
+## new relic config file
+newrelic.js
+
+## artillery config
+/server/controller/artillery.yml
+
+## redis files
+dump.rdb
+newrelic_agent.log
+redis-stable.tar.gz
+redis-stable/
